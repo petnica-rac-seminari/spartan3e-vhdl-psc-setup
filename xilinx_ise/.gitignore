@@ -73,3 +73,8 @@ planAhead_run_*/
 pa.fromNetlist.tcl
 planAhead_pid*.debug
 planAhead*.log
+output.txt
+*.sig
+*.cfi
+*.mcs
+*.prm
