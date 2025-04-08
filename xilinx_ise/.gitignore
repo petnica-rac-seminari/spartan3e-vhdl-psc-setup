@@ -65,3 +65,11 @@ xlnx_auto_0_xdb/
 xst/
 _ngo/
 _xmsgs/
+
+
+# added - Igor
+netgen/
+planAhead_run_*/
+pa.fromNetlist.tcl
+planAhead_pid*.debug
+planAhead*.log
