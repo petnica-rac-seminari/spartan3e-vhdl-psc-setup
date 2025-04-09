@@ -34,14 +34,14 @@ ARCHITECTURE behavioural OF uart_echo IS
         );
     END COMPONENT uart_io;
 
-    SIGNAL input_enable_s : STD_LOGIC;
-    SIGNAL output_enable_s : STD_LOGIC;
-    SIGNAL input_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL output_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL rx_buff_empty_s : STD_LOGIC;
-    SIGNAL rx_buff_empty_next_s : STD_LOGIC;
-    SIGNAL tx_buff_full_s : STD_LOGIC;
-    SIGNAL tx_buff_full_next_s : STD_LOGIC;
+    SIGNAL input_enable_s : STD_LOGIC :='0';
+    SIGNAL output_enable_s : STD_LOGIC :='0';
+    SIGNAL input_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0) := x"00";
+    SIGNAL output_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0) := x"00";
+    SIGNAL rx_buff_empty_s : STD_LOGIC :='0';
+    SIGNAL rx_buff_empty_next_s : STD_LOGIC :='0';
+    SIGNAL tx_buff_full_s : STD_LOGIC :='0';
+    SIGNAL tx_buff_full_next_s : STD_LOGIC :='0';
 
 BEGIN
 
