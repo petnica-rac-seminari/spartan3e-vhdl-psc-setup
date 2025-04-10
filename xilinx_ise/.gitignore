@@ -94,3 +94,4 @@ pn_info
 isim/temp/
 fuse.xmsgs
 xilinxsim.ini
+*.ipf
