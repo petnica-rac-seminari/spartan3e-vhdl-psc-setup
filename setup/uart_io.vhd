@@ -9,10 +9,10 @@ ENTITY uart_io IS
         reset : IN STD_LOGIC;
         rx : IN STD_LOGIC;
         tx : OUT STD_LOGIC;
-        input_enable : IN STD_LOGIC;
-        output_enable : IN STD_LOGIC;
+        input_enable : IN STD_LOGIC :='0';
+        output_enable : IN STD_LOGIC :='0';
         input_data : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-        output_data : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+        output_data : IN STD_LOGIC_VECTOR(7 DOWNTO 0) :=x"00";
         input_empty : OUT STD_LOGIC;
         input_empty_next : OUT STD_LOGIC;
         output_full : OUT STD_LOGIC;
