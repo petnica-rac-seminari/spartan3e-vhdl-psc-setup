@@ -62,7 +62,7 @@ BEGIN
 
     PROCESS (clk) BEGIN
     IF rising_edge(clk) THEN
-        IF tx_buff_full_s = '0' AND (rx_buff_empty_s = '0' OR rx_buff_empty_next_s = '1') THEN
+        IF (tx_buff_full_s = '0' OR tx_buff_full_next_s = '1') AND (rx_buff_empty_s = '0' OR rx_buff_empty_next_s = '1') THEN
             output_enable_s <= '1';
             input_enable_s <= '1';
             output_data_s <= input_data_s;
