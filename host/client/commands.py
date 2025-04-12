@@ -131,12 +131,15 @@ class Commands:
         print(f"Connected to {ser.portstr}")
         # read from serial and write to stdout
         while True:
-            data = ser.read()
-            if data:
-                sys.stdout.write(data.decode())
-                sys.stdout.flush()
-            else:
-                break
+            try:
+                data = ser.read()
+                if data:
+                    sys.stdout.write(data.decode())
+                    sys.stdout.flush()
+                else:
+                    break
+            except Exception as e:
+                print(e)
         ser.close()
         return True
     def write(self, *, port: str = ""):
@@ -172,10 +175,13 @@ class Commands:
                         break
         def read_from_serial():
             while True:
-                data = ser.read()
-                if data:
-                    sys.stdout.write(data.decode())
-                    sys.stdout.flush()
+                try:
+                    data = ser.read()
+                    if data:
+                        sys.stdout.write(data.decode())
+                        sys.stdout.flush()
+                except Exception as e:
+                    print(e)
         # start threads to read and write
         read_thread = Thread(target=read_from_file)
         write_thread = Thread(target=read_from_serial)
@@ -194,13 +200,17 @@ class Commands:
         while True:
             data = sys.stdin.read(write_size)
             if data:
-                ser.write(data.encode())
-                data = ser.read(read_size)
-                if data:
-                    sys.stdout.write(data.decode())
-                    sys.stdout.flush()
+                try:
+                    ser.write(data.encode())
+                    data = ser.read(read_size)
+                    if data:
+                        sys.stdout.write(data.decode())
+                        sys.stdout.flush()
+                except Exception as e:
+                    print(e)
             else:
                 break
+        
             data = ser.read(read_size)
             if data:
                 sys.stdout.write(data.decode())
@@ -218,7 +228,6 @@ class Commands:
         import numpy as np
 
         # Example signal
-        sd.
         signal = [0.1, 0.2, -0.1, -0.2]  * 22050 
         sd.play(10 * np.array(signal), samplerate=44100)
         sd.wait()
