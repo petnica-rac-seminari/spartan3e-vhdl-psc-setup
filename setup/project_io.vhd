@@ -22,6 +22,7 @@ ARCHITECTURE behavioural OF project_io IS
     SIGNAL temp_data : STD_LOGIC_VECTOR (7 DOWNTO 0);
     SIGNAL done_s : STD_LOGIC := '0';
 BEGIN
+    -- tebalo bi da radi samo eho
     PROCESS (clk, rst)
     BEGIN
         IF rst = '1' THEN
