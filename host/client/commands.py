@@ -6,7 +6,7 @@ from time import sleep
 import sys 
 from enum import Enum
 from threading import Thread
-from client.config import get_config_int, get_config_str
+from client.config import get_config_int, get_config_str, get_config_bool
 class Platform(Enum):
     WINDOWS = 1
     LINUX = 2
@@ -48,7 +48,11 @@ def get_serial_port(choice: str = None):
     baudrate = get_config_int("baudrate", 115200, "Baudrate for serial port")
     stopbits = get_config_int("stopbits", 1, "Stop bits for serial port")
     bytesize = get_config_int("bytesize", 8, "Data bits for serial port")
-    timeout = get_config_int("timeout", 1, "Timeout for serial port")
+    use_timeout = get_config_bool("use_timeout", False, "Use timeout for serial port")
+    if use_timeout:
+        timeout = get_config_int("timeout", 1, "Timeout for serial port")
+    else:
+        timeout = None
     parity = get_config_str("parity", "N", "Parity for serial port")
     
     if parity == "N":
