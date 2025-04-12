@@ -99,15 +99,21 @@ class Commands:
         # write to serial from stdin 
         def read_from_serial():
             while True:
-                data = ser.read()
-                if data:
-                    sys.stdout.write(data.decode())
-                    sys.stdout.flush()
+                try:
+                    data = ser.read()
+                    if data:
+                        sys.stdout.write(data.decode())
+                        sys.stdout.flush()
+                except Exception as e:
+                    print(e)
         def write_to_serial():
             while True:
-                data = sys.stdin.read(1)
-                if data:
-                    ser.write(data.encode())
+                try:
+                    data = sys.stdin.read(1)
+                    if data:
+                        ser.write(data.encode())
+                except Exception as e:
+                    print(e)
         # start threads to read and write
         read_thread = Thread(target=read_from_serial)
         write_thread = Thread(target=write_to_serial)
