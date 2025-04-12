@@ -1,2 +1,4 @@
 pyserial
 orgasm-package 
+sounddevice
+numpy

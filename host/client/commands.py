@@ -203,3 +203,19 @@ class Commands:
                 break
         ser.close()
         return True
+    
+    def play(self, rate: int, *, port: str = ""):
+        """
+        Play the serial port
+        """
+        import sounddevice as sd
+        import numpy as np
+
+        # Example signal
+        sd.
+        signal = [0.1, 0.2, -0.1, -0.2]  * 22050 
+        sd.play(10 * np.array(signal), samplerate=44100)
+        sd.wait()
+        ser = get_serial_port(port)
+        print(f"Connected to {ser.portstr}")
+        
