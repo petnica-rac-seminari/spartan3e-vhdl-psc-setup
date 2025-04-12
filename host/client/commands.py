@@ -44,12 +44,13 @@ def get_serial_port(choice: str = None):
     """
     Get the serial port to use for communication.
     """
-    configured_port = get_config_str("port", "Serial port to use", "")
-    baudrate = get_config_int("baudrate", "Baudrate for serial port", 115200)
-    parity = get_config_str("parity", "Parity for serial port", "N")
-    stopbits = get_config_int("stopbits", "Stopbits for serial port", 1)
-    bytesize = get_config_int("bytesize", "Bytesize for serial port", 8)
-    timeout = get_config_int("timeout", "Timeout for serial port", 1)
+    configured_port = get_config_str("port", "", "Serial port to use")
+    baudrate = get_config_int("baudrate", 115200, "Baudrate for serial port")
+    stopbits = get_config_int("stopbits", 1, "Stop bits for serial port")
+    bytesize = get_config_int("bytesize", 8, "Data bits for serial port")
+    timeout = get_config_int("timeout", 1, "Timeout for serial port")
+    parity = get_config_str("parity", "N", "Parity for serial port")
+    
     if parity == "N":
         parity = PARITY_NONE
     elif parity == "E":
