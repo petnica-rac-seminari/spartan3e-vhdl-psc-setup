@@ -40,6 +40,7 @@ ARCHITECTURE behavioural OF project_io_tb IS
     
     TYPE memory_array IS ARRAY(natural RANGE <>) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
     TYPE memory_bank IS ARRAY(natural RANGE <>) OF memory_array(0 to IN_RAM_SIZE-1);
+
     -- RAM
     SIGNAL in_ram : memory_array (0 TO IN_RAM_SIZE-1);
     SIGNAL out_ram : memory_array (0 TO OUT_RAM_SIZE-1);
@@ -101,11 +102,6 @@ BEGIN
     END PROCESS p_clock;
 
 
-    process
-    begin
-        wait for 1000 ns;
-        report "end" severity failure;
-    end process;
 
     PROCESS (clk)
     begin
@@ -130,7 +126,7 @@ BEGIN
 
     p_ram_reader : PROCESS (clk)
     BEGIN 
-        IF rising_edge(clk) AND enable = '1' AND in_read_enable = '1' THEN
+        IF rising_edge(clk) AND in_read_enable = '1' THEN
             in_data <= in_ram(in_index);
         END IF;
     END PROCESS p_ram_reader;
@@ -138,7 +134,7 @@ BEGIN
     p_ram_output : PROCESS (clk)
     variable line_out : line;
     BEGIN 
-        IF rising_edge(clk) AND out_write_enable = '1' AND enable = '1' THEN
+        IF rising_edge(clk) AND out_write_enable = '1' THEN
             
             write (line_out, to_integer(unsigned(out_data)));
             writeline (output, line_out);

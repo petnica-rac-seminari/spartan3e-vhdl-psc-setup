@@ -21,7 +21,7 @@ END ENTITY project_io;
 ARCHITECTURE behavioural OF project_io IS
     SIGNAL temp_data : STD_LOGIC_VECTOR (7 DOWNTO 0) := (others => '1');
     SIGNAL done_s : STD_LOGIC := '0';
-    SIGNAL state_s : STD_LOGIC_VECTOR(2 DOWNTO 0) := "000";
+    SIGNAL state_s : STD_LOGIC_VECTOR(1 DOWNTO 0) := "00";
 BEGIN
     PROCESS (clk, rst)
     BEGIN
@@ -30,33 +30,28 @@ BEGIN
             out_write_enable <= '0';
             done <= '0';
         ELSIF rising_edge(clk) THEN
-            IF enable = '1' AND done_s = '0' AND state_s = "000" THEN
+            IF enable = '1' AND state_s = "00" AND done_s = '0' THEN
                 in_read_enable <= '1';
-                out_write_enable <= '0';
                 in_index <= 0;
-                state_s <= "001";
-            ELSIF enable = '1' AND state_s = "001" THEN
+                state_s <= "01";
+            ELSIF enable = '1' AND state_s = "01" THEN
                 in_read_enable <= '0';
                 out_index <= 0;
-                state_s <= "010";
-            ELSIF enable = '1' AND state_s = "010" THEN
-                temp_data <= in_data;
-                state_s <= "011";
 
-            ELSIF enable = '1' AND state_s = "011" THEN
+                state_s <= "10";
+            ELSIF enable = '1' AND state_s = "10" THEN
                 out_write_enable <= '1';
-                out_data <= temp_data;
+                out_index <= 0;
+                out_data <= in_data;
 
-                state_s <= "100";
-            ELSIF enable = '1' AND state_s = "100" THEN
-                done <= '1';
+                state_s <= "00";
                 done_s <= '1';
+            ELSIF enable = '1' and done_s = '1' THEN
                 out_write_enable <= '0';
-                state_s <= "000";
-            ELSIF done_s = '1' THEN
+                done <= '1';
+            ELSE
                 done <= '0';
                 done_s <= '0';
-            ELSE
             END IF;
         END IF;
     END PROCESS;
